@@ -19,15 +19,28 @@ class QuoridorX(Quoridor):
         """
         méthode qui affiche le jeu
         """
-        fen = ttl
-
-        ttl = tl.Turtle()
-        ttl.speed("fastest")
-        ttl.pensize(10)
-        ttl.pencolor('red')
-        ttl.shape('square')
-        ttl.set(-300, -300)
-        ttl.ht()
+        fen = tl.Screen()
+        fen.setup(width=800, height=800)
+        bacon.speed('fastest')
+        bacon.pencolor('blue')
+        bacon = tl.Turtle()
+        bacon.ht()
+        bacon.fillcolor('blue')
+        bacon.penup()
+        bacon.right(180)
+        bacon.forward(300)
+        bacon.left(90)
+        bacon.forward(300)
+        bacon.left(90)
+        bacon.pendown()
+        bacon.begin_fill()
+        bacon.forward(600)
+        bacon.left(90)
+        bacon.forward(600)
+        bacon.left(90)
+        bacon.forward(600)
+        bacon.end_fill()
+        tl.done()
         
 
 
