@@ -15,11 +15,22 @@ class QuoridorX(Quoridor):
         super().__init__(joueurs, murs=None)
 
     def afficher():
-        fenetre = tl.Screen('black')
-        fenetre.setup(width=600, height=600)
-        curseur = tl.Turtle()
-        tl.speed("fastest")
+        """
+        méthode qui affiche le jeu
+        """
+        fen = ttl
+
+        ttl = tl.Turtle()
+        ttl.speed("fastest")
+        ttl.pensize(10)
+        ttl.pencolor('red')
+        ttl.shape('square')
+        ttl.set(-300, -300)
+        ttl.ht()
         
+
+
         for i in range(9):
             for n in range(9):
-                curseur
+                
+            pass
