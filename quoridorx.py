@@ -7,7 +7,7 @@ import quoridor as qr
 import turtle as tl
 
 
-class QuoridorX(Quoridor):
+class QuoridorX(qr.Quoridor):
     """
     Nouvelle Classe
     """
@@ -19,11 +19,11 @@ class QuoridorX(Quoridor):
         """
         méthode qui affiche le jeu
         """
+        bacon = tl.Turtle()
         fen = tl.Screen()
         fen.setup(width=800, height=800)
         bacon.speed('fastest')
         bacon.pencolor('blue')
-        bacon = tl.Turtle()
         bacon.ht()
         bacon.fillcolor('blue')
         bacon.penup()
@@ -41,10 +41,11 @@ class QuoridorX(Quoridor):
         bacon.forward(600)
         bacon.end_fill()
         tl.done()
-        
 
 
         for i in range(9):
             for n in range(9):
-                 
+                pass
             pass
+
+QuoridorX.afficher()
