@@ -12,7 +12,7 @@ def analyser_commande():
         help='Lister les identifiants de vos 20 dernières parties.'
     )
     parser.add_argument(
-        'idul', help='IDUL du joueur.', metavar: 'idul'
+        'idul', help='IDUL du joueur.', metavar='idul'
     )
     return parser.parse_args()
 
