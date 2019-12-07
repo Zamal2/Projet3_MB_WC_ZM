@@ -14,6 +14,7 @@ class QuoridorX(Quoridor):
     def __init__(self, joueurs, murs=None):
         super().__init__(joueurs, murs=None)
 
+
     def afficher():
         """
         méthode qui affiche le jeu
