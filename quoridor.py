@@ -77,7 +77,7 @@ class Quoridor:
         damier.append(list("  | 1   2   3   4   5   6   7   8   9"))
         # Placer les pions
         pos = {"1": (4*self.posj1[0], 20 - (2*self.posj1[1])),
-               "2": (4*self.posj2[0], 20 - (self.posj2[1]))}
+               "2": (4*self.posj2[0], 20 - (2*self.posj2[1]))}
         for ind, val in pos.items():
             damier[val[1]][val[0]] = ind
         # Placer les murs horizontaux
@@ -101,15 +101,15 @@ class Quoridor:
         """
         Déplace le jeton correspondant au joueur spécifié
         """
-        if 0 < position[0] <= 9 and 0 < position[1] <= 9:
+        if position[0] > 9 or position[0] < 1 or position[1] > 9 or position[1] < 1:
             raise QuoridorError("la position est invalide (en dehors du damier).")
         graphe = construire_graphe(
             [joueur['pos'] for joueur in self.état['joueurs']],
             self.état['murs']['horizontaux'],
             self.état['murs']['verticaux']
         )
-        move_possible = list(graphe.successors())
         if joueur == 1:
+            move_possible = list(graphe.successors(self.posj1))
             pos_actuelle1 = self.posj1
             for element in move_possible:
                 if element == position:
@@ -117,6 +117,7 @@ class Quoridor:
             if pos_actuelle1 == self.posj1:
                 raise QuoridorError("La position est invalide pour l'état actuelle du jeu")
         elif joueur == 2:
+            move_possible = list(graphe.successors(self.posj2))
             pos_actuelle2 = self.posj2
             for element in move_possible:
                 if element == position:
@@ -160,15 +161,17 @@ class Quoridor:
         elif joueur == 1:
             if len(nx.shortest_path(graphe, self.posj1, "B1")) \
                     <= len(nx.shortest_path(graphe, self.posj2, "B2")):
-                self.déplacer_jeton(1, nx.shortest_path(graphe, self.posj1))
+                self.déplacer_jeton(1, list(nx.shortest_path(graphe, self.posj1))[1])
+                print(list(nx.shortest_path(graphe, self.posj1)))
             else:
-                self.placer_mur(1, (5, 3), "horizontaux")
+                self.placer_mur(1, (5, 3), "horizontal")
         elif joueur == 2:
             if len(nx.shortest_path(graphe, self.posj1, "B1")) \
                     >= len(nx.shortest_path(graphe, self.posj2, "B2")):
-                self.déplacer_jeton(2, nx.shortest_path(graphe, self.posj2))
+                self.déplacer_jeton(2, list(nx.shortest_path(graphe, self.posj2))[1])
+                print(list(nx.shortest_path(graphe, self.posj2)))
             else:
-                self.placer_mur(2, (5, 7), "horizontaux")
+                self.placer_mur(2, (5, 7), "horizontal")
         else:
             raise QuoridorError('le numero de joueur est invalide')
 
@@ -262,12 +265,7 @@ class Quoridor:
 
 def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
     """
-    Crée le graphe des déplacements admissibles pour les joueurs.
-
-    :param joueurs: une liste des positions (x,y) des joueurs.
-    :param murs_horizontaux: une liste des positions (x,y) des murs horizontaux.
-    :param murs_verticaux: une liste des positions (x,y) des murs verticaux.
-    :returns: le graphe bidirectionnel (en networkX) des déplacements admissibles.
+    Fonction donné qui crée un graphe des posibilités de jeu
     """
     graphe = nx.DiGraph()
 
@@ -299,42 +297,36 @@ def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
         graphe.remove_edge((x-1, y+1), (x, y+1))
         graphe.remove_edge((x, y+1), (x-1, y+1))
 
-    # s'assurer que les positions des joueurs sont bien des tuples (et non des listes)
-    j1, j2 = tuple(joueurs[0]), tuple(joueurs[1])
+    # retirer tous les arcs qui pointent vers les positions des joueurs
+    # et ajouter les sauts en ligne droite ou en diagonale, selon le cas
+    for joueur in map(tuple, joueurs):
 
-    # traiter le cas des joueurs adjacents
-    if j2 in graphe.successors(j1) or j1 in graphe.successors(j2):
-        # retirer les liens entre les joueurs
-        graphe.remove_edge(j1, j2)
-        graphe.remove_edge(j2, j1)
+        for prédécesseur in list(graphe.predecessors(joueur)):
+            graphe.remove_edge(prédécesseur, joueur)
 
-        def ajouter_lien_sauteur(noeud, voisin):
-            """
-            :param noeud: noeud de départ du lien.
-            :param voisin: voisin par dessus lequel il faut sauter.
-            """
-            saut = 2*voisin[0]-noeud[0], 2*voisin[1]-noeud[1]
+            # si admissible, ajouter un lien sauteur
+            successeur = (2*joueur[0]-prédécesseur[0], 2*joueur[1]-prédécesseur[1])
 
-            if saut in graphe.successors(voisin):
-                # ajouter le saut en ligne droite
-                graphe.add_edge(noeud, saut)
+            if successeur in graphe.successors(joueur) and successeur not in joueurs:
+                # ajouter un saut en ligne droite
+                graphe.add_edge(prédécesseur, successeur)
 
             else:
-                # ajouter les sauts en diagonale
-                for saut in graphe.successors(voisin):
-                    graphe.add_edge(noeud, saut)
+                # ajouter les liens en diagonal
+                for successeur in list(graphe.successors(joueur)):
+                    if prédécesseur != successeur and successeur not in joueurs:
+                        graphe.add_edge(prédécesseur, successeur)
 
-        ajouter_lien_sauteur(j1, j2)
-        ajouter_lien_sauteur(j2, j1)
-
-    # ajouter les destinations finales des joueurs
+    # ajouter les noeuds objectifs des deux joueurs
     for x in range(1, 10):
         graphe.add_edge((x, 9), 'B1')
         graphe.add_edge((x, 1), 'B2')
 
     return graphe
 
+
 class QuoridorError(Exception):
     """
     Classe d'utilisation d'erreur
     """
+
