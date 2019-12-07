@@ -32,5 +32,5 @@ class QuoridorX(Quoridor):
 
         for i in range(9):
             for n in range(9):
-                
+                 
             pass
