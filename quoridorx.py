@@ -23,17 +23,13 @@ class QuoridorX(qr.Quoridor):
         fen = tl.Screen()
         fen.setup(width=800, height=800)
         bacon.speed('fastest')
-        bacon.pencolor('blue')
+        bacon.pencolor('navy')
         bacon.ht()
-        bacon.fillcolor('blue')
-        bacon.penup()
-        bacon.right(180)
-        bacon.forward(300)
-        bacon.left(90)
-        bacon.forward(300)
-        bacon.left(90)
-        bacon.pendown()
+        bacon.fillcolor('navy')
         bacon.begin_fill()
+        bacon.setpos(-300, -300)
+        bacon.forward(600)
+        bacon.left(90)
         bacon.forward(600)
         bacon.left(90)
         bacon.forward(600)
@@ -41,11 +37,25 @@ class QuoridorX(qr.Quoridor):
         bacon.forward(600)
         bacon.end_fill()
         tl.done()
+        
 
 
         for i in range(9):
             for n in range(9):
-                pass
+                bacon.penup()
+                bacon.foward(15)
+                bacon.pendown()
+                bacon.foward(50)
+                bacon.left(90)
+                bacon.foward(50)
+                bacon.left(90)
+                bacon.fowward(50)
+                bacon.left(90)
+                bacon.foward(50)
+                bacon.fillcolor('white')
+                bacon.penup()
+                bacon.foward(15)
+                
             pass
 
 QuoridorX.afficher()
