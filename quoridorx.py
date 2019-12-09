@@ -14,7 +14,7 @@ class QuoridorX(qr.Quoridor):
     def __init__(self, joueurs, murs=None):
         super().__init__(joueurs, murs=None)
 
-    def afficher():
+    def afficher(self):
         """
         méthode qui affiche le jeu
         """
@@ -77,7 +77,7 @@ class QuoridorX(qr.Quoridor):
         mh.ht()
         mh.pencolor('black')
         mh.fillcolor('gray')
-        for h in self.état['murs'['horizontaux']]:
+        for h in self.état['murs']['horizontaux']:
             mh.penup()
             mh.setpos(-325+(((h[0]-1)*60)+((h[0]-1)+1)*11), -325+(((h[1]-1)*60)+((h[1]-1)+1)*11)-8)
             mh.pendown()
@@ -92,7 +92,7 @@ class QuoridorX(qr.Quoridor):
         mv.ht()
         mv.pencolor('black')
         mv.fillcolor('gray')
-        for v in self.état['murs'['verticaux']]:
+        for v in self.état['murs']['verticaux']:
             mv.penup()
             mv.setpos(-325+(((v[0]-1)*60)+((v[0]-1)+1)*11)-8, -325+(((v[1]-1)*60)+((v[1]-1)+1)*11))
             mv.pendown()
@@ -105,6 +105,6 @@ class QuoridorX(qr.Quoridor):
             mv.end_fill()
         tl.done()
 
-QuoridorX.afficher()
-print(self.posj1)
+a = QuoridorX(('penis', 'vagin'))
+a.afficher()
 
