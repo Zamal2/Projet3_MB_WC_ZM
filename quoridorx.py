@@ -19,43 +19,37 @@ class QuoridorX(qr.Quoridor):
         """
         méthode qui affiche le jeu
         """
-        bacon = tl.Turtle()
+        fond = tl.Turtle()
         fen = tl.Screen()
         fen.setup(width=800, height=800)
-        bacon.speed('fastest')
-        bacon.pencolor('navy')
-        bacon.ht()
-        bacon.fillcolor('navy')
-        bacon.begin_fill()
-        bacon.setpos(-300, -300)
-        bacon.forward(600)
-        bacon.left(90)
-        bacon.forward(600)
-        bacon.left(90)
-        bacon.forward(600)
-        bacon.left(90)
-        bacon.forward(600)
-        bacon.end_fill()
-        tl.done()
-        
-
-
-        for i in range(9):
-            for n in range(9):
-                bacon.penup()
-                bacon.foward(15)
-                bacon.pendown()
-                bacon.foward(50)
-                bacon.left(90)
-                bacon.foward(50)
-                bacon.left(90)
-                bacon.fowward(50)
-                bacon.left(90)
-                bacon.foward(50)
-                bacon.fillcolor('white')
-                bacon.penup()
-                bacon.foward(15)
-                
-            pass
+        fond.pencolor('lime')
+        fen.delay(0)
+        fond.ht()
+        fond.fillcolor('lime')
+        fond.setpos(-325, -325)
+        fond.begin_fill()
+        fond.forward(650)
+        fond.left(90), fond.forward(650)
+        fond.left(90), fond.forward(650)
+        fond.end_fill()
+        car = tl.Turtle()
+        car.pencolor('red')
+        car.ht()
+        car.fillcolor('yellow')
+        for x in range(9):
+            for i in range(9):
+                car.penup()
+                car.setpos(-325+((i*60)+(i+1)*11), -325+((x*60)+(x+1)*11))
+                car.pendown()
+                car.begin_fill()
+                car.forward(60)
+                car.left(90)
+                car.forward(60)
+                car.left(90)
+                car.forward(60)
+                car.left(90)
+                car.forward(60)
+                car.left(90)
+                car.end_fill()
 
 QuoridorX.afficher()
