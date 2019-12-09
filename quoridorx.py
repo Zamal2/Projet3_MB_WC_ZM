@@ -18,6 +18,8 @@ class QuoridorX(qr.Quoridor):
         """
         méthode qui affiche le jeu
         """
+        posj1 = self.posj1
+        posj2 = self.posj2
         fond = tl.Turtle()
         fen = tl.Screen()
         fen.setup(width=800, height=800)
@@ -56,7 +58,7 @@ class QuoridorX(qr.Quoridor):
         j1.pencolor('red')
         j1.fillcolor('red')
         j1.penup()
-        j1.setpos(-325+(((self.posj1[0]-1)*60)+((self.posj1[0]-1)+1)*11)+30, -325+(((posj1[1]-1)*60)+((posj1[1]-1)+1)*11)+5)
+        j1.setpos(-325+(((posj1[0]-1)*60)+((posj1[0]-1)+1)*11)+30, -325+(((posj1[1]-1)*60)+((posj1[1]-1)+1)*11)+5)
         j1.pendown()
         j1.begin_fill()
         j1.circle(25)
@@ -75,7 +77,7 @@ class QuoridorX(qr.Quoridor):
         mh.ht()
         mh.pencolor('black')
         mh.fillcolor('gray')
-        for h in mursh:
+        for h in self.état['murs'['horizontaux']]:
             mh.penup()
             mh.setpos(-325+(((h[0]-1)*60)+((h[0]-1)+1)*11), -325+(((h[1]-1)*60)+((h[1]-1)+1)*11)-8)
             mh.pendown()
@@ -90,7 +92,7 @@ class QuoridorX(qr.Quoridor):
         mv.ht()
         mv.pencolor('black')
         mv.fillcolor('gray')
-        for v in mursv:
+        for v in self.état['murs'['verticaux']]:
             mv.penup()
             mv.setpos(-325+(((v[0]-1)*60)+((v[0]-1)+1)*11)-8, -325+(((v[1]-1)*60)+((v[1]-1)+1)*11))
             mv.pendown()
@@ -101,7 +103,7 @@ class QuoridorX(qr.Quoridor):
             mv.left(90), mv.forward(131)
             mv.left(90)
             mv.end_fill()
-tl.done()
+        tl.done()
 
 QuoridorX.afficher()
 print(self.posj1)
