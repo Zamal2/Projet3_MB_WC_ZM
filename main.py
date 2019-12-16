@@ -48,23 +48,20 @@ ARGUMENTS = analyser_commande()
 #             break
 
 
-# if ARGUMENTS.automatique and not ARGUMENTS.graphique:
-#     PARTIE = api.débuter_partie(ARGUMENTS.idul)
-#     IDPARTIE = PARTIE[0]
-#     ÉTAT = PARTIE[1]
-#     EXP = True
-#     while EXP:
-#         try:
-#             JEU = qr.Quoridor(PARTIE[1])
-#             print(JEU)
-#             JEU.jouer_coup("1")
-#             print(JEU)
-#             api.jouer_coup()
-#             print("À quelle position horizontale?")
-#             POSH = input()
-#             print("À quelle position verticale?")
-#             POSV = input()
-#             PARTIE = api.jouer_coup(IDPARTIE, TYPECOUP, (POSH, POSV))
-#         except StopIteration as err:
-#             print(f"La partie est terminée, {err} est vainqueur!")
-#             break
+if ARGUMENTS.automatique and not ARGUMENTS.graphique:
+    PARTIE = api.débuter_partie(ARGUMENTS.idul)
+    IDPARTIE = PARTIE[0]
+    ÉTAT = PARTIE[1]
+    EXP = True
+    while EXP:
+        try:
+            JEU = qr.Quoridor(PARTIE[1])
+            print(JEU)
+            JEU.jouer_coup("1")
+            print(JEU)
+            api.jouer_coup()
+
+#            PARTIE = api.jouer_coup(IDPARTIE, TYPECOUP, (POSH, POSV))
+#        except StopIteration as err:
+#            print(f"La partie est terminée, {err} est vainqueur!")
+#            break

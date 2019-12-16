@@ -27,6 +27,7 @@ def jouer_coup(id_partie, type_coup, position):
     rep = rep.json()
     if "message" in rep:
         raise RuntimeError(rep["message"])
-    elif "gagnant" in rep:
+    if "gagnant" in rep:
         raise StopIteration(rep["gagnant"])
     return rep["état"]
+    
