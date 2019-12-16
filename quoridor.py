@@ -60,7 +60,6 @@ class Quoridor:
             raise QuoridorError('le nombre de murs placé par un joueur est suppérieur a 10')
         self.état_partie()
 
-
     def __str__(self):
         """Réproduit le damier tel que l'état envoyé par le serveur"""
         # Damier en dictionnaire
@@ -94,8 +93,6 @@ class Quoridor:
                 damier[j][colonne] = '|'
         return '\n'.join(''.join(k for k in ligne) for ligne in damier)+'\n'
 
-
-
     def déplacer_jeton(self, joueur, position):
         """
         Déplace le jeton correspondant au joueur spécifié
@@ -126,8 +123,6 @@ class Quoridor:
         else:
             raise QuoridorError("Le numéro du joueur est autre que 1 ou 2.")
 
-
-
     def état_partie(self):
         """
         Produit l'état actuel de la partie
@@ -140,8 +135,6 @@ class Quoridor:
                          'horizontaux': self.murs['horizontaux'],
                          'verticaux': self.murs['verticaux']}}
         return self.état
-
-
 
     def jouer_coup(self, joueur):
         """
@@ -164,7 +157,6 @@ class Quoridor:
         else:
             raise QuoridorError('le numéro de joueur est invalide.')
 
-
     def partie_terminée(self):
         """
         Détermine si la partie est terminée
@@ -175,7 +167,6 @@ class Quoridor:
             return self.joueur2
         else:
             return False
-
 
     def placer_mur(self, joueur, position, orientation):
         """
@@ -250,11 +241,9 @@ class Quoridor:
         else:
             raise QuoridorError("Le numéro du joueur est autre que 1 ou 2.")
 
-
 def construire_graphe(joueurs, murs_horizontaux, murs_verticaux):
     """
     Crée le graphe des déplacements admissibles pour les joueurs.
-
     :param joueurs: une liste des positions (x,y) des joueurs.
     :param murs_horizontaux: une liste des positions (x,y) des murs horizontaux.
     :param murs_verticaux: une liste des positions (x,y) des murs verticaux.

@@ -25,8 +25,8 @@ def débuter_partie(idul):
 
 def jouer_coup(id_partie, type_coup, position):
     """Appelle la requête jouer coup du serveur de jeu"""
-    r = requests.post(URL+'jouer/', data={'id': id_partie, 'type': type_coup, 'pos': position})
-    rep = r.json()
+    rep = requests.post(URL+'jouer/', data={'id': id_partie, 'type': type_coup, 'pos': position})
+    rep = rep.json()
     if "message" in rep:
         raise RuntimeError(rep["message"])
     elif "gagnant" in rep:
