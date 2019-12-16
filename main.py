@@ -50,7 +50,7 @@ def autonome(idul):
             break
 
 def auto_graph(idul):
-        PARTIE = api.débuter_partie(ARGUMENTS.idul)
+    PARTIE = api.débuter_partie(ARGUMENTS.idul)
     IDPARTIE = PARTIE[0]
     JEU = qr.Quoridor([idul, "automate"])
     JEU.état = PARTIE[1]
