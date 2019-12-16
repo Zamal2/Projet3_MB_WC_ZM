@@ -63,7 +63,7 @@ class Quoridor:
     def __str__(self):
         """Réproduit le damier tel que l'état envoyé par le serveur"""
         # Damier en dictionnaire
-        damier = [list(f"Légende: 1={self.joueur1}, 2={self.joueur2}"),
+        damier = [list(f"Légende: 1={self.joueur1}, 2={self.joueur2}"),\
             list("   -----------------------------------")]
         for j in range(17):
             if j % 2 == 0:
@@ -73,7 +73,7 @@ class Quoridor:
         damier.append(list("--|-----------------------------------"))
         damier.append(list("  | 1   2   3   4   5   6   7   8   9"))
         # Placer les pions
-        pos = {"1": (4*self.posj1[0], 20 - (2*self.posj1[1])),
+        pos = {"1": (4*self.posj1[0], 20 - (2*self.posj1[1])),\
             "2": (4*self.posj2[0], 20 - (2*self.posj2[1]))}
         for ind, val in pos.items():
             damier[val[1]][val[0]] = ind
@@ -148,7 +148,7 @@ class Quoridor:
             self.état['murs']['horizontaux'],
             self.état['murs']['verticaux']
         )
-        if self.partie_terminée() != False:
+        if self.partie_terminée() is not False:
             raise QuoridorError('la partie est terminée')
         elif joueur == 1:
             self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1, 'B1'))[1])
@@ -164,8 +164,7 @@ class Quoridor:
             return self.joueur1
         elif self.posj2[1] == 1:
             return self.joueur2
-        else:
-            return False
+        return False
 
     def placer_mur(self, joueur, position, orientation):
         """
