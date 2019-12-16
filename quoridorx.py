@@ -48,12 +48,11 @@ class QuoridorX(qr.Quoridor):
                 car.penup()
                 car.setpos(-325+((i*60)+(i+1)*11), -325+((x*60)+(x+1)*11))
                 car.pendown()
-                fairecar = (car.left(90), car.forward(60))
                 car.begin_fill()
                 car.forward(60)
-                fairecar
-                fairecar
-                fairecar
+                car.left(90), car.forward(60)
+                car.left(90), car.forward(60)
+                car.left(90), car.forward(60)
                 car.left(90)
                 car.end_fill()
         j1 = tl.Turtle()
