@@ -2,9 +2,8 @@
 Classe qui ajoute de nouvelles fonctionnalitées et qui hérite de la classe Quoridor 
 """
 
-
-import quoridor as qr
 import turtle as tl
+import quoridor as qr
 
 
 class QuoridorX(qr.Quoridor):
@@ -83,9 +82,9 @@ class QuoridorX(qr.Quoridor):
         mh.ht()
         mh.pencolor('black')
         mh.fillcolor('white')
-        for h in self.état['murs']['horizontaux']:
+        for i in self.état['murs']['horizontaux']:
             mh.penup()
-            mh.setpos(-325+(((h[0]-1)*60)+((h[0]-1)+1)*11), -325+(((h[1]-1)*60)+((h[1]-1)+1)*11)-8)
+            mh.setpos(-325+(((i[0]-1)*60)+((i[0]-1)+1)*11), -325+(((i[1]-1)*60)+((i[1]-1)+1)*11)-8)
             mh.pendown()
             mh.begin_fill()
             mh.forward(131)
