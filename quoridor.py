@@ -282,10 +282,10 @@ class Quoridor:
                         self.placer_mur(2, endroit, "horizontal")
                         self.type_coup = "MH"
                         self.pos_coup = endroit
-                        except QuoridorError:
-                            self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2))[1])
-                            self.type_coup = "D"
-                            self.pos_coup = (nx.shortest_path(graphe, self.posj2, 'B2'))[1]
+                    except QuoridorError:
+                        self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2))[1])
+                        self.type_coup = "D"
+                        self.pos_coup = (nx.shortest_path(graphe, self.posj2, 'B2'))[1]
                 elif number == 0 or number == 2:
                     for i in (nx.shortest_path(graphe, self.posj1, "B1"))[1:]:
                         for x in self.état['murs']['verticaux']:
