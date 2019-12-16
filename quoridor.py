@@ -4,7 +4,7 @@ Classe qui encapsule le jeu Quoridor
 
 import copy
 import networkx as nx
-import random.randint as rng
+from random import randint as rng
 
 
 class Quoridor:
