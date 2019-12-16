@@ -21,6 +21,7 @@ class QuoridorX(qr.Quoridor):
         posj2 = self.posj2
         fond = tl.Turtle()
         fen = tl.Screen()
+        fen.title("Quoridor.py")
         fen.setup(width=800, height=800)
         fond.pencolor('black')
         fen.delay(0)

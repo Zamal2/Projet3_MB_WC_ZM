@@ -34,12 +34,13 @@ def autonome(idul):
     IDPARTIE = PARTIE[0]
     JEU = qr.Quoridor([idul.lower(), "automate"])
     JEU.état = PARTIE[1]
+    print(JEU)
     while True:
         try:
             JEU.jouer_coup(1)
             print(JEU)
             JEU.état = api.jouer_coup(IDPARTIE, JEU.type_coup, JEU.pos_coup)
-            JEU.posj2 = JEU.état['joueurs'][1]['pos']
+            JEU.posj2 = (JEU.état['joueurs'][1]['pos'][0], JEU.état['joueurs'][1]['pos'][1])
             for i in JEU.état['murs']["horizontaux"]:
                 JEU.murs['horizontaux'].append(i)
             for i in JEU.état['murs']["verticaux"]:
@@ -62,7 +63,7 @@ def auto_graph(idul):
             AFFICHAGE.posj1 = JEU.état['joueurs'][0]['pos']
             AFFICHAGE.afficher()
             JEU.état = api.jouer_coup(IDPARTIE, JEU.type_coup, JEU.pos_coup)
-            JEU.posj2 = JEU.état['joueurs'][1]['pos']
+            JEU.posj2 = (JEU.état['joueurs'][1]['pos'][0], JEU.état['joueurs'][1]['pos'][1])
             AFFICHAGE.posj2 = JEU.état['joueurs'][1]['pos']
             for i in JEU.état['murs']["horizontaux"]:
                 JEU.murs['horizontaux'].append(i)
