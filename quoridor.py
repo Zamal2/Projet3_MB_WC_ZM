@@ -4,6 +4,7 @@ Classe qui encapsule le jeu Quoridor
 
 import copy
 import networkx as nx
+import random.randint as rng
 
 
 class Quoridor:
@@ -151,9 +152,155 @@ class Quoridor:
         if self.partie_terminée() is not False:
             raise QuoridorError('la partie est terminée')
         elif joueur == 1:
-            self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1, 'B1'))[1])
+            round = 0
+            if round <= 5:
+                number = rng(0, 9)
+                round += 1
+                endroit = ()
+                if number == 1 or number == 5 and self.mursj1 > 7:
+                    for i in (nx.shortest_path(graphe, self.posj2, "B2"))[1:]:
+                        for x in self.état['murs']['horizontaux']:
+                            if i != x:
+                                endroit = i
+                            break
+                        break
+                    try:
+                        self.placer_mur(1, endroit, "horizontal")
+                        self.type_coup = "MH"
+                        self.pos_coup = endroit
+                    except QuoridorError:
+                        self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1))[1])
+                        self.type_coup = "D"
+                        self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[1]
+                elif number == 4 or number == 9 and self.mursj1 > 7:
+                    for i in (nx.shortest_path(graphe, self.posj2, "B2"))[1:]:
+                        for x in self.état['murs']['verticaux']:
+                            if i != x:
+                                endroit = i
+                            break
+                        break
+                    try:
+                        self.placer_mur(1, endroit, "vertical")
+                        self.type_coup = "MV"
+                        self.pos_coup = endroit
+                    except QuoridorError:
+                        self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1))[1])
+                        self.type_coup = "D"
+                        self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[1]
+                self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1, 'B1'))[1])
+            elif len(nx.shortest_path(graphe, self.posj1, "B1")) \
+                    <= len(nx.shortest_path(graphe, self.posj2, "B2")):
+                self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1))[1])
+                self.type_coup = "D"
+                self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[1]
+            else:
+                number = rng(0, 3)
+                endroit = ()
+                if number == 1 or number == 3:
+                    for i in (nx.shortest_path(graphe, self.posj2, "B2"))[1:]:
+                        for x in self.état['murs']['horizontaux']:
+                            if i != x:
+                                endroit = i
+                            break
+                        break
+                    try:
+                        self.placer_mur(1, endroit, "horizontal")
+                        self.type_coup = "MH"
+                        self.pos_coup = endroit
+                        except QuoridorError:
+                            self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1))[1])
+                            self.type_coup = "D"
+                            self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[1]
+                elif number == 0 or number == 2:
+                    for i in (nx.shortest_path(graphe, self.posj2, "B2"))[1:]:
+                        for x in self.état['murs']['verticaux']:
+                            if i != x:
+                                endroit = i
+                            break
+                        break
+                    try:
+                        self.placer_mur(1, endroit, "vertical")
+                        self.type_coup = "MV"
+                        self.pos_coup = endroit
+                    except QuoridorError:
+                        self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1))[1])
+                        self.type_coup = "D"
+                        self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[1]
         elif joueur == 2:
-            self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2, 'B2'))[1])
+            round = 0
+            if round <= 5:
+                number = rng(0, 9)
+                round += 1
+                endroit = ()
+                if number == 1 or number == 5 and self.mursj2 > 7:
+                    for i in (nx.shortest_path(graphe, self.posj1, "B1"))[1:]:
+                        for x in self.état['murs']['horizontaux']:
+                            if i != x:
+                                endroit = i
+                            break
+                        break
+                    try:
+                        self.placer_mur(2, endroit, "horizontal")
+                        self.type_coup = "MH"
+                        self.pos_coup = endroit
+                    except QuoridorError:
+                        self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2))[1])
+                        self.type_coup = "D"
+                        self.pos_coup = (nx.shortest_path(graphe, self.posj2, 'B2'))[1]
+                elif number == 4 or number == 9 and self.mursj2 > 7:
+                    for i in (nx.shortest_path(graphe, self.posj1, "B1"))[1:]:
+                        for x in self.état['murs']['verticaux']:
+                            if i != x:
+                                endroit = i
+                            break
+                        break
+                    try:
+                        self.placer_mur(2, endroit, "vertical")
+                        self.type_coup = "MV"
+                        self.pos_coup = endroit
+                    except QuoridorError:
+                        self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2))[1])
+                        self.type_coup = "D"
+                        self.pos_coup = (nx.shortest_path(graphe, self.posj2, 'B2'))[1]
+                self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2, 'B2'))[1])
+            elif len(nx.shortest_path(graphe, self.posj2, "B2")) \
+                    <= len(nx.shortest_path(graphe, self.posj1, "B1")):
+                self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2))[1])
+                self.type_coup = "D"
+                self.pos_coup = (nx.shortest_path(graphe, self.posj2, 'B2'))[1]
+            else:
+                number = rng(0, 3)
+                endroit = ()
+                if number == 1 or number == 3:
+                    for i in (nx.shortest_path(graphe, self.posj1, "B1"))[1:]:
+                        for x in self.état['murs']['horizontaux']:
+                            if i != x:
+                                endroit = i
+                            break
+                        break
+                    try:
+                        self.placer_mur(2, endroit, "horizontal")
+                        self.type_coup = "MH"
+                        self.pos_coup = endroit
+                        except QuoridorError:
+                            self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2))[1])
+                            self.type_coup = "D"
+                            self.pos_coup = (nx.shortest_path(graphe, self.posj2, 'B2'))[1]
+                elif number == 0 or number == 2:
+                    for i in (nx.shortest_path(graphe, self.posj1, "B1"))[1:]:
+                        for x in self.état['murs']['verticaux']:
+                            if i != x:
+                                endroit = i
+                            break
+                        break
+                    try:
+                        self.placer_mur(2, endroit, "vertical")
+                        self.type_coup = "MV"
+                        self.pos_coup = endroit
+                    except QuoridorError:
+                        self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2))[1])
+                        self.type_coup = "D"
+                        self.pos_coup = (nx.shortest_path(graphe, self.posj2, 'B2'))[1]
         raise QuoridorError('le numéro de joueur est invalide.')
 
     def partie_terminée(self):

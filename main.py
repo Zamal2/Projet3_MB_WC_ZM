@@ -23,45 +23,59 @@ def analyser_commande():
     )
     return parser.parse_args()
 
+def manuel(idul):
+    print("Cette méthode n'a pas encore été implémentée.")
 
-ARGUMENTS = analyser_commande()
+def manu_graph(idul):
+    print("Cette méthode n'a pas encore été implémentée.")
 
-# Affiche la liste des dernières parties ou prends l'input
-# if ARGUMENTS.lister:
-#     print(api.lister_parties(ARGUMENTS.idul))
-# else:
-#     IDPARTIE = api.débuter_partie(ARGUMENTS.idul)[0]
-#     PARTIE = api.débuter_partie(ARGUMENTS.idul)[1]
-#     EXP = True
-#     while EXP:
-#         try:
-#             afficher_damier_ascii(PARTIE)
-#             print("Déplacer le pion(D), placer un mur horizontal(MH), placer un mur vertical(MV)")
-#             TYPECOUP = input()
-#             print("À quelle position horizontale?")
-#             POSH = input()
-#             print("À quelle position verticale?")
-#             POSV = input()
-#             PARTIE = api.jouer_coup(IDPARTIE, TYPECOUP, (POSH, POSV))
-#         except StopIteration as err:
-#             print(f"La partie est terminée, {err} est vainqueur!")
-#             break
-
-
-if ARGUMENTS.automatique and not ARGUMENTS.graphique:
+def autonome(idul):
     PARTIE = api.débuter_partie(ARGUMENTS.idul)
     IDPARTIE = PARTIE[0]
-    ÉTAT = PARTIE[1]
-    EXP = True
-    while EXP:
+    JEU = qr.Quoridor([idul.lower(), "automate"])
+    JEU.état = PARTIE[1]
+    while True:
         try:
-            JEU = qr.Quoridor(PARTIE[1])
+            JEU.jouer_coup(1)
             print(JEU)
-            JEU.jouer_coup("1")
+            JEU.état = api.jouer_coup(IDPARTIE, JEU.type_coup, JEU.pos_coup)
+            JEU.posj2 = JEU.état['joueurs'][1]['pos']
+            for i in JEU.état['murs']["horizontaux"]:
+                JEU.murs['horizontaux'].append(i)
+            for i in JEU.état['murs']["verticaux"]:
+                JEU.murs['verticaux'].append(i)
             print(JEU)
-            api.jouer_coup()
+        except StopIteration as err:
+            print(f"La partie est terminée, {err} est vainqueur!")
+            break
 
-#            PARTIE = api.jouer_coup(IDPARTIE, TYPECOUP, (POSH, POSV))
-#        except StopIteration as err:
-#            print(f"La partie est terminée, {err} est vainqueur!")
-#            break
+def auto_graph(idul):
+        PARTIE = api.débuter_partie(ARGUMENTS.idul)
+    IDPARTIE = PARTIE[0]
+    JEU = qr.Quoridor([idul, "automate"])
+    JEU.état = PARTIE[1]
+    AFFICHAGE = qrx.QuoridorX([idul.lower(), "automate"])
+    while True:
+        try:
+            JEU.jouer_coup(1)
+            AFFICHAGE.afficher()
+            JEU.état = api.jouer_coup(IDPARTIE, JEU.type_coup, JEU.pos_coup)
+            JEU.posj2 = JEU.état['joueurs'][1]['pos']
+            for i in JEU.état['murs']["horizontaux"]:
+                JEU.murs['horizontaux'].append(i)
+            for i in JEU.état['murs']["verticaux"]:
+                JEU.murs['verticaux'].append(i)
+            AFFICHAGE.afficher()
+        except StopIteration as err:
+            print(f"La partie est terminée, {err} est vainqueur!")
+            break
+
+ARGUMENTS = analyser_commande()
+if ARGUMENTS.automatique and not ARGUMENTS.graphique:
+    autonome(ARGUMENTS.idul.lower())
+elif ARGUMENTS.automatique and ARGUMENTS.graphique:
+    auto_graph(ARGUMENTS.idul.lower())
+elif ARGUMENTS.graphique and not ARGUMENTS.automatique:
+    manu_graph(ARGUMENTS.idul.lower())
+else:
+    manuel(ARGUMENTS.idul.lower())

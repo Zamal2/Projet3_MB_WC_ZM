@@ -17,8 +17,8 @@ class QuoridorX(qr.Quoridor):
         """
         méthode qui affiche le jeu
         """
-        posj1 = self.posj1
-        posj2 = self.posj2
+        posj1 = super().posj1
+        posj2 = super().posj2
         fond = tl.Turtle()
         fen = tl.Screen()
         fen.setup(width=800, height=800)
@@ -82,7 +82,7 @@ class QuoridorX(qr.Quoridor):
         mh.ht()
         mh.pencolor('black')
         mh.fillcolor('white')
-        for i in self.état['murs']['horizontaux']:
+        for i in super().état['murs']['horizontaux']:
             mh.penup()
             mh.setpos(-325+(((i[0]-1)*60)+((i[0]-1)+1)*11), -325+(((i[1]-1)*60)+((i[1]-1)+1)*11)-8)
             mh.pendown()
@@ -97,7 +97,7 @@ class QuoridorX(qr.Quoridor):
         mv.ht()
         mv.pencolor('black')
         mv.fillcolor('white')
-        for v in self.état['murs']['verticaux']:
+        for v in super().état['murs']['verticaux']:
             mv.penup()
             mv.setpos(-325+(((v[0]-1)*60)+((v[0]-1)+1)*11)-8, -325+(((v[1]-1)*60)+((v[1]-1)+1)*11))
             mv.pendown()
