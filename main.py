@@ -55,16 +55,21 @@ def auto_graph(idul):
     JEU = qr.Quoridor([idul, "automate"])
     JEU.état = PARTIE[1]
     AFFICHAGE = qrx.QuoridorX([idul.lower(), "automate"])
+    AFFICHAGE.afficher()
     while True:
         try:
             JEU.jouer_coup(1)
+            AFFICHAGE.posj1 = JEU.état['joueurs'][0]['pos']
             AFFICHAGE.afficher()
             JEU.état = api.jouer_coup(IDPARTIE, JEU.type_coup, JEU.pos_coup)
             JEU.posj2 = JEU.état['joueurs'][1]['pos']
+            AFFICHAGE.posj2 = JEU.état['joueurs'][1]['pos']
             for i in JEU.état['murs']["horizontaux"]:
                 JEU.murs['horizontaux'].append(i)
+                AFFICHAGE.murs['horizontaux'].append(i)
             for i in JEU.état['murs']["verticaux"]:
                 JEU.murs['verticaux'].append(i)
+                AFFICHAGE.murs['verticaux'].append(i)
             AFFICHAGE.afficher()
         except StopIteration as err:
             print(f"La partie est terminée, {err} est vainqueur!")
