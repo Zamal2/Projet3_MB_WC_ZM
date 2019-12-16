@@ -24,13 +24,13 @@ def analyser_commande():
     return parser.parse_args()
 
 def manuel(idul):
-    print("Cette méthode n'a pas encore été implémentée.")
+    print("La méthode de jeu manuelle n'a pas encore été implémentée.")
 
 def manu_graph(idul):
-    print("Cette méthode n'a pas encore été implémentée.")
+    print("La méthode de jeu manuelle avec affichage graphique n'a pas encore été implémentée.")
 
 def autonome(idul):
-    PARTIE = api.débuter_partie(ARGUMENTS.idul)
+    PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
     IDPARTIE = PARTIE[0]
     JEU = qr.Quoridor([idul.lower(), "automate"])
     JEU.état = PARTIE[1]
@@ -50,7 +50,7 @@ def autonome(idul):
             break
 
 def auto_graph(idul):
-    PARTIE = api.débuter_partie(ARGUMENTS.idul)
+    PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
     IDPARTIE = PARTIE[0]
     JEU = qr.Quoridor([idul, "automate"])
     JEU.état = PARTIE[1]
@@ -77,10 +77,10 @@ def auto_graph(idul):
 
 ARGUMENTS = analyser_commande()
 if ARGUMENTS.automatique and not ARGUMENTS.graphique:
-    autonome(ARGUMENTS.idul.lower())
+    autonome(ARGUMENTS.idul)
 elif ARGUMENTS.automatique and ARGUMENTS.graphique:
-    auto_graph(ARGUMENTS.idul.lower())
+    auto_graph(ARGUMENTS.idul)
 elif ARGUMENTS.graphique and not ARGUMENTS.automatique:
-    manu_graph(ARGUMENTS.idul.lower())
+    manu_graph(ARGUMENTS.idul)
 else:
-    manuel(ARGUMENTS.idul.lower())
+    manuel(ARGUMENTS.idul)

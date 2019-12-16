@@ -153,7 +153,12 @@ class Quoridor:
             raise QuoridorError('la partie est terminée')
         elif joueur == 1:
             round = 0
-            if round <= 5:
+            if round == 0:
+                self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1, 'B1'))[1])
+                self.type_coup = "D"
+                self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[1]
+                round += 1
+            elif round <= 5:
                 number = rng(0, 9)
                 round += 1
                 endroit = ()
@@ -188,6 +193,8 @@ class Quoridor:
                         self.type_coup = "D"
                         self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[1]
                 self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1, 'B1'))[1])
+                self.type_coup = "D"
+                self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[1]
             elif len(nx.shortest_path(graphe, self.posj1, "B1")) \
                     <= len(nx.shortest_path(graphe, self.posj2, "B2")):
                 self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1))[1])
