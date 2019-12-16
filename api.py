@@ -10,8 +10,7 @@ def lister_parties(idul):
     rep = rep.json()
     if "message" in rep:
         raise RuntimeError(rep["message"])
-    else:
-        return rep["parties"]
+    return rep["parties"]
 
 def débuter_partie(idul):
     """Débute une nouvelle partie dans le serveur de jeu"""
@@ -19,8 +18,7 @@ def débuter_partie(idul):
     rep = rep.json()
     if  "message" in rep:
         raise RuntimeError(rep["message"])
-    else:
-        return (rep['id'], rep['état'])
+    return (rep['id'], rep['état'])
 
 
 def jouer_coup(id_partie, type_coup, position):
@@ -31,5 +29,5 @@ def jouer_coup(id_partie, type_coup, position):
         raise RuntimeError(rep["message"])
     elif "gagnant" in rep:
         raise StopIteration(rep["gagnant"])
-    else:
-        return rep["état"]
+    return rep["état"]
+    

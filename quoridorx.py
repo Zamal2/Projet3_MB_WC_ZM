@@ -62,7 +62,8 @@ class QuoridorX(qr.Quoridor):
         j1.pencolor('black')
         j1.fillcolor('white')
         j1.penup()
-        j1.setpos(-325+(((posj1[0]-1)*60)+((posj1[0]-1)+1)*11)+30, -325+(((posj1[1]-1)*60)+((posj1[1]-1)+1)*11)+5)
+        j1.setpos(-325+(((posj1[0]-1)*60)+((posj1[0]-1)+1)*11)+30,\
+            -325+(((posj1[1]-1)*60)+((posj1[1]-1)+1)*11)+5)
         j1.pendown()
         j1.begin_fill()
         j1.circle(25)
@@ -72,7 +73,8 @@ class QuoridorX(qr.Quoridor):
         j2.pencolor('black')
         j2.fillcolor('black')
         j2.penup()
-        j2.setpos(-325+(((posj2[0]-1)*60)+((posj2[0]-1)+1)*11)+30, -325+(((posj2[1]-1)*60)+((posj2[1]-1)+1)*11)+5)
+        j2.setpos(-325+(((posj2[0]-1)*60)+((posj2[0]-1)+1)*11)+30,\
+            -325+(((posj2[1]-1)*60)+((posj2[1]-1)+1)*11)+5)
         j2.pendown()
         j2.begin_fill()
         j2.circle(25)
@@ -108,7 +110,3 @@ class QuoridorX(qr.Quoridor):
             mv.left(90)
             mv.end_fill()
         tl.done()
-
-a = QuoridorX(('bs', 'zach'))
-a.afficher()
-

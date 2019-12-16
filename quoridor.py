@@ -64,7 +64,7 @@ class Quoridor:
         """Réproduit le damier tel que l'état envoyé par le serveur"""
         # Damier en dictionnaire
         damier = [list(f"Légende: 1={self.joueur1}, 2={self.joueur2}"),
-                list("   -----------------------------------")]
+            list("   -----------------------------------")]
         for j in range(17):
             if j % 2 == 0:
                 damier.append(list(f"{str(9 - j // 2)} | .   .   .   .   .   .   .   .   . |"))
@@ -154,8 +154,7 @@ class Quoridor:
             self.déplacer_jeton(1, (nx.shortest_path(graphe, self.posj1, 'B1'))[1])
         elif joueur == 2:
             self.déplacer_jeton(2, (nx.shortest_path(graphe, self.posj2, 'B2'))[1])
-        else:
-            raise QuoridorError('le numéro de joueur est invalide.')
+        raise QuoridorError('le numéro de joueur est invalide.')
 
     def partie_terminée(self):
         """
