@@ -24,61 +24,73 @@ def analyser_commande():
     return parser.parse_args()
 
 def manuel(idul):
-    PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
-    JEU = qr.Quoridor([idul.lower(), "automate"])
-    JEU.état = PARTIE[1]
-    print(JEU)
+    """
+    Fonction qui permet de jouer en mode manuel.
+    """
+    partie = api.débuter_partie(ARGUMENTS.idul.lower())
+    jeu = qr.Quoridor([idul.lower(), "automate"])
+    jeu.état = partie[1]
+    print(jeu)
     print("La méthode de jeu manuelle n'a pas encore été implémentée.")
 
 def manu_graph(idul):
-    PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
-    JEU = qr.Quoridor([idul.lower(), "automate"])
-    JEU.état = PARTIE[1]
-    print(JEU)
+    """
+    Fonction qui permet de jouer en mode manuel avec une affichage graphique.
+    """
+    partie = api.débuter_partie(ARGUMENTS.idul.lower())
+    jeu = qr.Quoridor([idul.lower(), "automate"])
+    jeu.état = partie[1]
+    print(jeu)
     print("La méthode de jeu manuelle avec affichage graphique n'a pas encore été implémentée.")
 
 def autonome(idul):
-    PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
-    IDPARTIE = PARTIE[0]
-    JEU = qr.Quoridor([idul.lower(), "automate"])
-    JEU.état = PARTIE[1]
-    print(JEU)
+    """
+    Fonction qui permet de jouer en mode automatique contre le serveur.
+    """
+    partie = api.débuter_partie(ARGUMENTS.idul.lower())
+    idp = partie[0]
+    jeu = qr.Quoridor([idul.lower(), "automate"])
+    jeu.état = partie[1]
+    print(jeu)
     while True:
         try:
-            JEU.jouer_coup(1)
-            print(JEU)
-            JEU.état = api.jouer_coup(IDPARTIE, JEU.type_coup, JEU.pos_coup)
-            JEU.posj2 = (JEU.état['joueurs'][1]['pos'][0], JEU.état['joueurs'][1]['pos'][1])
-            for i in JEU.état['murs']["horizontaux"]:
-                JEU.murs['horizontaux'].append(i)
-            for i in JEU.état['murs']["verticaux"]:
-                JEU.murs['verticaux'].append(i)
-            print(JEU)
+            jeu.jouer_coup(1)
+            print(jeu)
+            jeu.état = api.jouer_coup(idp, jeu.type_coup, jeu.pos_coup)
+            jeu.posj2 = (jeu.état['joueurs'][1]['pos'][0], jeu.état['joueurs'][1]['pos'][1])
+            for i in jeu.état['murs']["horizontaux"]:
+                jeu.murs['horizontaux'].append(i)
+            for i in jeu.état['murs']["verticaux"]:
+                jeu.murs['verticaux'].append(i)
+            print(jeu)
         except StopIteration as err:
             print(f"La partie est terminée, {err} est vainqueur!")
             break
 
 def auto_graph(idul):
-    PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
-    IDPARTIE = PARTIE[0]
-    JEU = qrx.QuoridorX([idul, "automate"])
-    JEU.état = PARTIE[1]
-    JEU.afficher()
+    """
+    Fonction qui permet de jouer en mode automatique contre le serveur avec une affichage graphique.
+    """
+    partie = api.débuter_partie(ARGUMENTS.idul.lower())
+    idp = partie[0]
+    jeu = qrx.QuoridorX([idul, "automate"])
+    jeu.état = partie[1]
+    jeu.afficher()
 
     while True:
         try:
-            JEU.jouer_coup(1)
-            JEU.afficher()
-            JEU.état = api.jouer_coup(IDPARTIE, JEU.type_coup, JEU.pos_coup)
-            JEU.posj2 = (JEU.état['joueurs'][1]['pos'][0], JEU.état['joueurs'][1]['pos'][1])
-            JEU.posj2 = (JEU.état['joueurs'][1]['pos'][0], JEU.état['joueurs'][1]['pos'][1])
-            for i in JEU.état['murs']["horizontaux"]:
-                JEU.murs['horizontaux'].append(i)
-                JEU.murs['horizontaux'].append(i)
-            for i in JEU.état['murs']["verticaux"]:
-                JEU.murs['verticaux'].append(i)
-                JEU.murs['verticaux'].append(i)
-            JEU.afficher()
+            jeu.jouer_coup(1)
+            jeu.afficher()
+            jeu.état = api.jouer_coup(idp, jeu.type_coup, jeu.pos_coup)
+            jeu.posj2 = (jeu.état['joueurs'][1]['pos'][0], jeu.état['joueurs'][1]['pos'][1])
+            jeu.posj2 = (jeu.état['joueurs'][1]['pos'][0], jeu.état['joueurs'][1]['pos'][1])
+            for i in jeu.état['murs']["horizontaux"]:
+                jeu.murs['horizontaux'].append(i)
+                jeu.murs['horizontaux'].append(i)
+            for i in jeu.état['murs']["verticaux"]:
+                jeu.murs['verticaux'].append(i)
+                jeu.murs['verticaux'].append(i)
+            jeu.afficher()
         except StopIteration as err:
             print(f"La partie est terminée, {err} est vainqueur!")
             break

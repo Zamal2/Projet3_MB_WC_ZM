@@ -1,5 +1,5 @@
 """
-Classe qui ajoute de nouvelles fonctionnalitées et qui hérite de la classe Quoridor 
+Classe qui ajoute de nouvelles fonctionnalitées et qui hérite de la classe Quoridor
 """
 
 import turtle as tl

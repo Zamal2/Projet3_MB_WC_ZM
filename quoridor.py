@@ -4,7 +4,6 @@ Classe qui encapsule le jeu Quoridor
 
 import copy
 import networkx as nx
-from random import randint as rng
 
 
 class Quoridor:
@@ -30,7 +29,6 @@ class Quoridor:
             self.posj1 = (5, 1)
             self.posj2 = (5, 9)
             self.murs = murs
-            self.round = 0
         # Code à executer si les objets de l'itérable sont des dictionnaires
         elif isinstance(joueurs[0], dict) and isinstance(joueurs[1], dict):
             self.joueur1 = joueurs[0]['nom']
@@ -40,7 +38,8 @@ class Quoridor:
             self.posj1 = (joueurs[0]['pos'][0], joueurs[0]['pos'][1])
             self.posj2 = (joueurs[1]['pos'][0], joueurs[1]['pos'][1])
             self.murs = murs
-            self.round = 0
+        self.type_coup = ""
+        self.pos_coup = ""
         if isinstance(murs, dict):
             for i in murs["horizontaux"]:
                 if i[0] < 1 or i[0] > 8 or i[1] < 2 or i[1] > 9:
@@ -147,21 +146,20 @@ class Quoridor:
             joueur {int} -- entier spécifiant le numéro du joueur
         """
         graphe = construire_graphe(
-        [joueur['pos'] for joueur in self.état['joueurs']], 
-        self.état['murs']['horizontaux'],
-        self.état['murs']['verticaux']
+            [joueur['pos'] for joueur in self.état['joueurs']],
+            self.état['murs']['horizontaux'],
+            self.état['murs']['verticaux']
         )
         if self.partie_terminée() is not False:
             raise QuoridorError('la partie est terminée')
         elif joueur == 1:
-                self.déplacer_jeton(1, tuple((nx.shortest_path(graphe, self.posj1, 'B1'))[1]))
-                self.type_coup = "D"
-                self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[0]
-                self.round += 1
+            self.déplacer_jeton(1, tuple((nx.shortest_path(graphe, self.posj1, 'B1'))[1]))
+            self.type_coup = "D"
+            self.pos_coup = (nx.shortest_path(graphe, self.posj1, 'B1'))[0]
         elif joueur == 2:
-                self.déplacer_jeton(1, tuple(nx.shortest_path(graphe, self.posj1, 'B1'))[1])
-                self.type_coup = "D"
-                self.pos_coup = tuple(nx.shortest_path(graphe, self.posj1, 'B1'))[0]
+            self.déplacer_jeton(1, tuple(nx.shortest_path(graphe, self.posj1, 'B1'))[1])
+            self.type_coup = "D"
+            self.pos_coup = tuple(nx.shortest_path(graphe, self.posj1, 'B1'))[0]
         else:
             raise QuoridorError('le numéro de joueur est invalide.')
 
