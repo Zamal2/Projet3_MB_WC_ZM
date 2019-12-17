@@ -8,9 +8,12 @@ import quoridor as qr
 
 class QuoridorX(qr.Quoridor):
     """
-    Nouvelle Classe
+    Classe qui permet d'afficher l'interface graphique du jeu.
     """
     def __init__(self, joueurs, murs=None):
+        """
+        Initialise la classe à l'aide de la classe-parent.
+        """
         super().__init__(joueurs, murs=None)
 
     def afficher(self):
@@ -57,28 +60,19 @@ class QuoridorX(qr.Quoridor):
                 car.left(90)
                 car.end_fill()
         j1 = tl.Turtle()
-        j1.pensize(2)
-        j1.ht()
-        j1.pencolor('black')
-        j1.fillcolor('white')
+        j1.shape("circle")
+        j1.shapesize(2)
+        j1.color('red')
         j1.penup()
         j1.setpos(-325+(((posj1[0]-1)*60)+((posj1[0]-1)+1)*11)+30,\
-            -325+(((posj1[1]-1)*60)+((posj1[1]-1)+1)*11)+5)
-        j1.pendown()
-        j1.begin_fill()
-        j1.circle(25)
-        j1.end_fill()
+            -300+(((posj1[1]-1)*60)+((posj1[1]-1)+1)*11)+5)
         j2 = tl.Turtle()
-        j2.ht()
-        j2.pencolor('black')
-        j2.fillcolor('black')
+        j2.shape('circle')
+        j2.shapesize(2)
+        j2.color('green')
         j2.penup()
         j2.setpos(-325+(((posj2[0]-1)*60)+((posj2[0]-1)+1)*11)+30,\
-            -325+(((posj2[1]-1)*60)+((posj2[1]-1)+1)*11)+5)
-        j2.pendown()
-        j2.begin_fill()
-        j2.circle(25)
-        j2.end_fill()
+            -300+(((posj2[1]-1)*60)+((posj2[1]-1)+1)*11)+5)
         mh = tl.Turtle()
         mh.ht()
         mh.pencolor('black')
@@ -109,4 +103,9 @@ class QuoridorX(qr.Quoridor):
             mv.left(90), mv.forward(131)
             mv.left(90)
             mv.end_fill()
-        tl.done()
+        mh._update()
+        mv._update()
+        fond._update()
+        car._update()
+        j1._update()
+        j2._update()

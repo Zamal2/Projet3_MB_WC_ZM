@@ -24,9 +24,17 @@ def analyser_commande():
     return parser.parse_args()
 
 def manuel(idul):
+    PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
+    JEU = qr.Quoridor([idul.lower(), "automate"])
+    JEU.état = PARTIE[1]
+    print(JEU)
     print("La méthode de jeu manuelle n'a pas encore été implémentée.")
 
 def manu_graph(idul):
+    PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
+    JEU = qr.Quoridor([idul.lower(), "automate"])
+    JEU.état = PARTIE[1]
+    print(JEU)
     print("La méthode de jeu manuelle avec affichage graphique n'a pas encore été implémentée.")
 
 def autonome(idul):
@@ -53,25 +61,24 @@ def autonome(idul):
 def auto_graph(idul):
     PARTIE = api.débuter_partie(ARGUMENTS.idul.lower())
     IDPARTIE = PARTIE[0]
-    JEU = qr.Quoridor([idul, "automate"])
+    JEU = qrx.QuoridorX([idul, "automate"])
     JEU.état = PARTIE[1]
-    AFFICHAGE = qrx.QuoridorX([idul.lower(), "automate"])
-    AFFICHAGE.afficher()
+    JEU.afficher()
+
     while True:
         try:
             JEU.jouer_coup(1)
-            AFFICHAGE.posj1 = JEU.état['joueurs'][0]['pos']
-            AFFICHAGE.afficher()
+            JEU.afficher()
             JEU.état = api.jouer_coup(IDPARTIE, JEU.type_coup, JEU.pos_coup)
             JEU.posj2 = (JEU.état['joueurs'][1]['pos'][0], JEU.état['joueurs'][1]['pos'][1])
-            AFFICHAGE.posj2 = JEU.état['joueurs'][1]['pos']
+            JEU.posj2 = (JEU.état['joueurs'][1]['pos'][0], JEU.état['joueurs'][1]['pos'][1])
             for i in JEU.état['murs']["horizontaux"]:
                 JEU.murs['horizontaux'].append(i)
-                AFFICHAGE.murs['horizontaux'].append(i)
+                JEU.murs['horizontaux'].append(i)
             for i in JEU.état['murs']["verticaux"]:
                 JEU.murs['verticaux'].append(i)
-                AFFICHAGE.murs['verticaux'].append(i)
-            AFFICHAGE.afficher()
+                JEU.murs['verticaux'].append(i)
+            JEU.afficher()
         except StopIteration as err:
             print(f"La partie est terminée, {err} est vainqueur!")
             break
