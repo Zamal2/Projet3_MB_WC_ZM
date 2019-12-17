@@ -76,7 +76,6 @@ def auto_graph(idul):
     jeu = qrx.QuoridorX([idul, "automate"])
     jeu.état = partie[1]
     jeu.afficher()
-
     while True:
         try:
             jeu.jouer_coup(1)
